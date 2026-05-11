@@ -55,10 +55,16 @@ def prepare_dataset(data_path: str, test_size: float = 0.2, seed: int = 42) -> D
     Returns a `DatasetDict` with "train" and "test" keys.
     """
     # TODO: read the CSV with pandas
+    df = pd.read_csv(data_path)
     # TODO: convert with Dataset.from_pandas(df, preserve_index=False)
+    hf_dataset = Dataset.from_pandas(df, preserve_index=False)
+
     # TODO: split with .train_test_split(test_size=test_size, seed=seed)
+    split_dataset = hf_dataset.train_test_split(test_size=test_size, seed=seed)
+
     # TODO: return the resulting DatasetDict
-    raise NotImplementedError
+    
+    return split_dataset
 
 
 def tokenize_dataset(ds_dict: DatasetDict, tokenizer, max_length: int = 128) -> DatasetDict:
