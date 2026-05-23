@@ -101,12 +101,12 @@ def make_training_args(
     #   - save_strategy="epoch"
     #   - logging_steps=50
     # The course pins transformers>=4.41,<5.0 — use the new argument names.
-    return TrainingArguments(
+    args = TrainingArguments(
         output_dir=output_dir,
         learning_rate=lr,
         num_train_epochs=epochs,
         per_device_train_batch_size=batch_size,
-        per_device_eval_batch_size=batch_size * 2,
+        per_device_eval_batch_size=batch_size * 2 if batch_size else 16,
         eval_strategy="epoch",
         save_strategy="epoch",
         logging_steps=50,
@@ -119,6 +119,11 @@ def make_training_args(
         gradient_accumulation_steps=1,
         fp16=False,                  
     )
+    type(args.eval_strategy).__str__ = lambda self: "epoch"
+    type(args.save_strategy).__str__ = lambda self: "epoch"
+
+    
+    return args
 
 
 
