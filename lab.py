@@ -11,6 +11,7 @@ CI smoke run: workflow sets DATA_PATH=fixtures/tiny_app_reviews.csv (60 rows).
 
 After training, push the fine-tuned model to your Hugging Face Hub account.
 The model directory is local-only (gitignored).
+stretch
 """
 import torch
 if not hasattr(torch.optim.Optimizer, "train"):
